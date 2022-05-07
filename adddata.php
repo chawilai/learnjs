@@ -2,11 +2,12 @@
 
 require_once("connect.php");
 
-if(isset($_GET['token']) && $_GET['token'] == 'xxxyyy'){
-    $stmt = $conn->prepare("SELECT * FROM language");
-    $stmt->execute();
+if(isset($_GET['title']) && isset($_GET['body'])){
+    $stmt = $conn->prepare("INSERT into language (title, body) VALUE (?, ?)");
+    $stmt->execute([
+        $_GET['title'],
+        $_GET['body'],
+    ]);
     
-    $data = $stmt->fetchall();
-    
-    echo json_encode($data);
+    echo json_encode($conn->lastInsertId());
 }

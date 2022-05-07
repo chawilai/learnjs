@@ -30,13 +30,23 @@
         </ul>
 
         <ul>
-            <li v-for="xxx in data">{{ xxx.title }}</li>
+            <li v-for="xxx in data">{{ xxx.title + ' : ' + xxx.body }}</li>
         </ul>
     
         <button @click="updateClock">Start Clock</button>
         <button @click="stopClock">Stop Clock</button>
         <button @click="resetClock">Reset Clock</button>
         <div>{{ clock }}</div>
+
+        <h3>add language</h3>
+        <form>
+            <input type="text" v-model="title">
+            <input type="text" v-model="body">
+            <input type="submit" value="Submit" @click.prevent="formSubmit">
+        </form>
+
+        <div>{{ title }}</div>
+        <div>{{ body }}</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
