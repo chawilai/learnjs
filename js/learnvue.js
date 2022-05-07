@@ -4,6 +4,7 @@ const vueContent = new Vue({
         google: "Learn JS",
         title: "",
         body: "",
+        buttonClass: "",
         language: [
             // 'PHP',
             // 'Javascript',
@@ -63,21 +64,29 @@ const vueContent = new Vue({
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'ยืนยันจ้าา!'
               }).then((result) => {
-                if (result.isConfirmed) {
+                  if (result.isConfirmed) {
+                    
+                      let formData = new FormData()
+
+                      formData.append("title", this.title)
+                      formData.append("body", this.body)
       
-                    axios.get('adddata.php', {
-                        params: {
-                          title: this.title,
-                          body: this.body
-                        }
-                      })
+                    axios.post('adddata.php', formData)
                         .then((response) => {
-                            Swal.fire(
-                                'สำเร็จ!',
-                                'แสดงข้อมูลใหม่ใน List แล้ว.',
-                                'success'
-                            )
-                            this.getdata()
+                            if (response.data) { 
+                                Swal.fire(
+                                    'สำเร็จ!',
+                                    'แสดงข้อมูลใหม่ใน List แล้ว.',
+                                    'success'
+                                )
+                                this.getdata()
+                            } else {
+                                Swal.fire(
+                                    'ล้มเหลว!',
+                                    'โปรดตรวจสอบ.',
+                                    'error'
+                                )
+                            }
                       })
                       .catch((error) => {
                         console.log(error);
@@ -86,7 +95,13 @@ const vueContent = new Vue({
               })
 
 
-        }
+        },
+        addClass() {
+            this.buttonClass = "btn"
+        },
+        removeClass() {
+            this.buttonClass = ""
+        },
     },
     mounted() {
         // console.log(this.language)

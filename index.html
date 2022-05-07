@@ -14,16 +14,18 @@
         <a id="facebook" href="facebook.com">facebook</a>
     
         <br>
+
+        <span :class="buttonClass">HELLO</span>
     
-        <button id="add">add class</button>
-        <button id="remove">remove class</button>
+        <button @click="addClass">add class</button>
+        <button @click="removeClass">remove class</button>
     
         <br>
     
         <button @click="getdata">get data</button>
         <br>
     
-        <button @click="saySorry">Sorry</button>
+        <button @click="saySorry" v-show="buttonClass != ''">Sorry</button>
     
         <ul>
             <li v-for="item in language" v-show="item != 'Go'">{{ item }}</li>
